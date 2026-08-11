@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - Asistencia Docente</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js CDN para las gráficas -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-[#dcfce7] via-[#f0fdf4] to-[#d8f9e2] text-gray-800 antialiased selection:bg-emerald-200">
+
+  <!-- BARRA DE NAVEGACIÓN SUPERIOR -->
+  <header class="w-full bg-white/70 backdrop-blur-md border-b border-white/60 px-4 md:px-8 py-3 flex items-center justify-between sticky top-0 z-50">
+    <!-- Logo y Título -->
+    <div class="flex items-center gap-3">
+      <div class="bg-emerald-600 text-white p-2 rounded-xl shadow-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 01-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+        </svg>
+      </div>
+      <div>
+        <h1 class="text-xs font-bold text-gray-900 leading-none">Asistencia Docente</h1>
+        <p class="text-[10px] text-gray-500 mt-0.5">Control Inteligente • Colombia</p>
+      </div>
+    </div>
+
+    <!-- Menú Central -->
+    <nav class="hidden md:flex items-center bg-gray-100/80 p-1 rounded-full border border-gray-200/60 text-xs font-medium">
+      <a href="inicio.html" class="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-gray-600 hover:text-gray-900 transition">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        Inicio
+      </a>
+      <a href="asistencias.html" class="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-gray-600 hover:text-gray-900 transition">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+        Asistencia
+      </a>
+      <a href="excusas.html" class="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-gray-600 hover:text-gray-900 transition">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        Excusas
+      </a>
+      <!-- Pestaña Activa: Dashboard -->
+      <a href="dashboard.html" class="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-emerald-600 text-white shadow-sm font-semibold transition">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+        Dashboard
+      </a>
+      <a href="codigo qr institucional.html" class="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-gray-600 hover:text-gray-900 transition">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
+        QR
+      </a>
+    </nav>
+
+    <!-- Usuario y Acciones -->
+    <div class="flex items-center gap-3">
+      <div class="text-right hidden sm:block">
+        <p class="text-xs font-bold text-gray-900 leading-none">Samuel david morales maldonado</p>
+        <p class="text-[10px] text-gray-500 mt-0.5">Docente</p>
+      </div>
+      <button class="p-1.5 text-gray-600 hover:text-gray-900 rounded-full hover:bg-black/5 transition" aria-label="Cambiar tema">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+      </button>
+      <button class="p-1.5 text-gray-600 hover:text-red-600 rounded-full hover:bg-black/5 transition" aria-label="Cerrar sesión">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="max-w-6xl mx-auto px-4 md:px-8 py-8">
+    
+    <!-- Encabezado de Sección y Filtro de Tiempo -->
+    <div class="flex items-start justify-between gap-4 mb-6">
+      <div>
+        <h2 class="text-2xl font-extrabold text-gray-900">Dashboard</h2>
+        <p class="text-xs text-gray-500 mt-0.5">Estadísticas personales en tiempo real</p>
+      </div>
+      
+      <!-- Selector de periodo -->
+      <div class="flex items-center gap-1 bg-white/40 backdrop-blur-sm p-1 rounded-full border border-white/60 text-xs font-medium text-gray-600">
+        <button class="px-3 py-1 rounded-full hover:text-gray-900 transition">Semana</button>
+        <button class="px-3 py-1 rounded-full bg-white text-gray-900 shadow-sm font-semibold transition">Mes</button>
+        <button class="px-3 py-1 rounded-full hover:text-gray-900 transition">Año</button>
+      </div>
+    </div>
+
+    <!-- TARJETAS DE MÉTRICAS (GRID DE 4 COLUMNAS) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      
+      <!-- Tarjeta 1: % Asistencia -->
+      <div class="bg-white/80 backdrop-blur-md rounded-2xl p-4 border border-white/80 shadow-md shadow-emerald-950/5 flex flex-col justify-between">
+        <div class="w-7 h-7 rounded-full bg-emerald-100/80 text-emerald-600 flex items-center justify-center mb-3">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-gray-900">0%</h3>
+          <p class="text-[11px] text-gray-500 font-medium">% Asistencia</p>
+        </div>
+      </div>
+
+      <!-- Tarjeta 2: Días laborales -->
+      <div class="bg-white/80 backdrop-blur-md rounded-2xl p-4 border border-white/80 shadow-md shadow-emerald-950/5 flex flex-col justify-between">
+        <div class="w-7 h-7 rounded-full bg-emerald-100/80 text-emerald-600 flex items-center justify-center mb-3">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-gray-900">21</h3>
+          <p class="text-[11px] text-gray-500 font-medium">Días laborales</p>
+        </div>
+      </div>
+
+      <!-- Tarjeta 3: Excusas aprobadas -->
+      <div class="bg-white/80 backdrop-blur-md rounded-2xl p-4 border border-white/80 shadow-md shadow-emerald-950/5 flex flex-col justify-between">
+        <div class="w-7 h-7 rounded-full bg-emerald-100/80 text-emerald-600 flex items-center justify-center mb-3">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-gray-900">0</h3>
+          <p class="text-[11px] text-gray-500 font-medium">Excusas aprobadas</p>
+        </div>
+      </div>
+
+      <!-- Tarjeta 4: Inasistencias -->
+      <div class="bg-white/80 backdrop-blur-md rounded-2xl p-4 border border-white/80 shadow-md shadow-emerald-950/5 flex flex-col justify-between">
+        <div class="w-7 h-7 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mb-3">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-gray-900">21</h3>
+          <p class="text-[11px] text-gray-500 font-medium">Inasistencias</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SECCIÓN DE GRÁFICAS -->
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+      
+      <!-- Gráfica 1: Inasistencias por mes (3 de 5 columnas) -->
+      <div class="lg:col-span-3 bg-white/80 backdrop-blur-md rounded-3xl p-5 border border-white/80 shadow-xl shadow-emerald-950/5 flex flex-col justify-between">
+        <h3 class="text-xs font-bold text-gray-900 mb-4">Inasistencias por mes</h3>
+        
+        <div class="relative w-full h-48">
+          <canvas id="barChart"></canvas>
+        </div>
+
+        <!-- Leyenda -->
+        <div class="flex items-center justify-center gap-4 mt-4 text-[11px] font-medium text-gray-600">
+          <span class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-sm bg-emerald-500 inline-block"></span> Faltas
+          </span>
+          <span class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-sm bg-emerald-200 inline-block"></span> Excusas
+          </span>
+        </div>
+      </div>
+
+      <!-- Gráfica 2: Tipos de Inasistencia (2 de 5 columnas) -->
+      <div class="lg:col-span-2 bg-white/80 backdrop-blur-md rounded-3xl p-5 border border-white/80 shadow-xl shadow-emerald-950/5 flex flex-col justify-between">
+        <h3 class="text-xs font-bold text-gray-900 mb-2">Tipos de Inasistencia</h3>
+        
+        <div class="relative w-full h-48 flex items-center justify-center">
+          <canvas id="donutChart"></canvas>
+        </div>
+
+        <!-- Leyenda -->
+        <div class="flex items-center justify-center gap-2 mt-4 text-[11px] font-medium text-gray-600">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-600 inline-block"></span>
+          <span>Injustificada</span>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- CONFIGURACIÓN DE LAS GRÁFICAS CON CHART.JS -->
+  <script>
+    // 1. Gráfica de Barras (Inasistencias por mes)
+    const ctxBar = document.getElementById('barChart').getContext('2d');
+    new Chart(ctxBar, {
+      type: 'bar',
+      data: {
+        labels: ['feb', 'mar', 'abr', 'may', 'jun', 'jul'],
+        datasets: [{
+          label: 'Faltas',
+          data: [0, 0, 0, 0, 14, 6],
+          backgroundColor: '#00c48c',
+          borderRadius: 4,
+          barThickness: 28,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 16,
+            ticks: {
+              stepSize: 4,
+              color: '#9ca3af',
+              font: { size: 10 }
+            },
+            grid: {
+              color: '#f3f4f6',
+              borderDash: [3, 3]
+            }
+          },
+          x: {
+            ticks: {
+              color: '#9ca3af',
+              font: { size: 10 }
+            },
+            grid: { display: false }
+          }
+        }
+      }
+    });
+
+    // 2. Gráfica de Dona (Tipos de Inasistencia)
+    const ctxDonut = document.getElementById('donutChart').getContext('2d');
+    new Chart(ctxDonut, {
+      type: 'doughnut',
+      data: {
+        labels: ['Injustificada'],
+        datasets: [{
+          data: [100],
+          backgroundColor: ['#10b981'],
+          borderWidth: 0,
+          hoverOffset: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '70%',
+        plugins: {
+          legend: { display: false },
+          tooltip: { enabled: false }
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
