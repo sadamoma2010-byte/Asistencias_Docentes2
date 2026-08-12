@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sistema Institucional de Control de Asistencia Docente mediante Código QR." />
+  <title>Asistencia Docente - Portal Institucional</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Estilos del proyecto -->
+  <link rel="stylesheet" href="css/css.css">
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════════════
+       PALETA VERDE INSTITUCIONAL & ESTILOS 3D INMERSIVOS
+       ═══════════════════════════════════════════════════════════════════ */
+    :root {
+      --green-dark: #022c22;
+      --green-deep: #064e3b;
+      --green-primary: #059669;
+      --green-accent: #10b981;
+      --green-light: #34d399;
+      --green-glow: rgba(16, 185, 129, 0.35);
+      --glass-bg: rgba(6, 78, 59, 0.25);
+      --glass-border: rgba(52, 211, 153, 0.2);
+      --text-main: #f0fdf4;
+      --text-muted: #a7f3d0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body.immersive-body {
+      background: radial-gradient(circle at 50% -20%, #064e3b 0%, #022c22 60%, #011710 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* LUCES 3D AMBIENTALES (ORBS) */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      z-index: 0;
+      pointer-events: none;
+      animation: floatOrb 10s infinite alternate ease-in-out;
+    }
+    .orb-1 {
+      width: 450px;
+      height: 450px;
+      background: var(--green-glow);
+      top: -100px;
+      left: -100px;
+    }
+    .orb-2 {
+      width: 500px;
+      height: 500px;
+      background: rgba(5, 150, 105, 0.2);
+      bottom: -150px;
+      right: -100px;
+    }
+
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(30px, 40px) scale(1.1); }
+    }
+
+    .landing-container {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* NAV NAVEGACIÓN GLASS 3D */
+    .nav-glass {
+      margin-top: 1.5rem;
+      padding: 1rem 2rem;
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+
+    .logo-3d {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text-main);
+      font-weight: 800;
+      font-size: 1.25rem;
+    }
+
+    .logo-icon-3d {
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(135deg, var(--green-accent), var(--green-deep));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 16px var(--green-glow), inset 0 2px 4px rgba(255,255,255,0.3);
+      transform: perspective(500px) rotateX(10deg) rotateY(-10deg);
+      transition: transform 0.3s ease;
+    }
+
+    .logo-3d:hover .logo-icon-3d {
+      transform: perspective(500px) rotateX(0deg) rotateY(0deg) scale(1.05);
+    }
+
+    .nav-buttons {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .btn-link-3d {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    .btn-link-3d:hover {
+      color: var(--green-light);
+    }
+
+    /* BOTONES TRIDIMENSIONALES */
+    .btn-3d-primary {
+      background: linear-gradient(180deg, var(--green-accent) 0%, var(--green-primary) 100%);
+      color: #011710;
+      padding: 0.8rem 1.75rem;
+      border-radius: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 6px 0 #046c4e, 0 12px 20px var(--green-glow);
+      transition: all 0.15s ease;
+      display: inline-block;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-3d-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 0 #046c4e, 0 16px 25px var(--green-glow);
+    }
+
+    .btn-3d-primary:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 #046c4e, 0 6px 10px var(--green-glow);
+    }
+
+    .btn-3d-secondary {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+      padding: 0.8rem 1.75rem;
+      border-radius: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 6px 0 rgba(2, 44, 34, 0.8), 0 10px 20px rgba(0,0,0,0.2);
+      transition: all 0.15s ease;
+      display: inline-block;
+    }
+
+    .btn-3d-secondary:hover {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: var(--green-light);
+      transform: translateY(-2px);
+    }
+
+    /* HERO GRID 3D */
+    .hero-3d {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding: 5rem 0;
+    }
+
+    .hero-grid-3d {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .badge-3d {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid var(--glass-border);
+      padding: 0.4rem 1rem;
+      border-radius: 30px;
+      color: var(--green-light);
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .hero-title-3d {
+      font-size: 3.5rem;
+      line-height: 1.1;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      letter-spacing: -1px;
+    }
+
+    .text-gradient-green {
+      background: linear-gradient(135deg, #a7f3d0 0%, #34d399 50%, #10b981 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 4px 12px var(--green-glow));
+    }
+
+    .hero-desc-3d {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      max-width: 540px;
+    }
+
+    .cta-group-3d {
+      display: flex;
+      gap: 1.25rem;
+      align-items: center;
+    }
+
+    /* VISUALIZADOR ESCENA 3D (TARJETA FLOTANTE PERSPECTIVA) */
+    .scene-3d {
+      perspective: 1200px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .card-3d-wrapper {
+      width: 100%;
+      max-width: 420px;
+      background: linear-gradient(135deg, rgba(6, 78, 59, 0.6) 0%, rgba(2, 44, 34, 0.8) 100%);
+      border: 1px solid var(--glass-border);
+      border-radius: 28px;
+      padding: 2.5rem;
+      backdrop-filter: blur(20px);
+      box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.5),
+        0 0 40px var(--green-glow),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      transform: rotateY(-12deg) rotateX(8deg) translateZ(0);
+      transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+      position: relative;
+    }
+
+    .scene-3d:hover .card-3d-wrapper {
+      transform: rotateY(0deg) rotateX(0deg) translateZ(20px);
+    }
+
+    /* MOCKUP INTERIOR DE ASISTENCIA QR */
+    .qr-mockup {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .qr-frame {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 1rem;
+      border: 3px dashed var(--green-primary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f0fdf4;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .qr-laser {
+      position: absolute;
+      width: 100%;
+      height: 3px;
+      background: var(--green-accent);
+      box-shadow: 0 0 12px var(--green-accent);
+      animation: scanLaser 2.5s infinite ease-in-out;
+    }
+
+    @keyframes scanLaser {
+      0% { top: 0%; }
+      50% { top: 95%; }
+      100% { top: 0%; }
+    }
+
+    .floating-badge-3d {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      background: #011710;
+      border: 1px solid var(--green-light);
+      padding: 0.75rem 1.25rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transform: translateZ(40px);
+    }
+
+    .dot-live {
+      width: 10px;
+      height: 10px;
+      background: var(--green-accent);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--green-accent);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+    }
+
+    /* FOOTER */
+    .footer-3d {
+      padding: 2rem 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      border-top: 1px solid rgba(52, 211, 153, 0.1);
+      margin-top: auto;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 992px) {
+      .hero-grid-3d {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 3rem;
+      }
+
+      .hero-desc-3d {
+        margin: 0 auto 2.5rem;
+      }
+
+      .cta-group-3d {
+        justify-content: center;
+      }
+
+      .card-3d-wrapper {
+        transform: rotateY(0deg) rotateX(0deg);
+      }
+    }
+  </style>
+</head>
+<body class="immersive-body">
+
+  <!-- ORBES DE LUZ AMBIENTAL -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <!-- NAVEGACIÓN PRINCIPAL -->
+  <header class="landing-container">
+    <nav class="nav-glass">
+      <!-- Logo Institucional -->
+      <a href="/" class="logo-3d">
+        <div class="logo-icon-3d">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f0fdf4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+            <path d="M9 16l2 2 4-4"></path>
+          </svg>
+        </div>
+        <span>Asistencia Docente</span>
+      </a>
+
+      <!-- Botones de Acción -->
+      <div class="nav-buttons">
+        <a href="Templates/iniciar.html" class="btn-link-3d">Iniciar sesión</a>
+        <a href="Templates/registro.html" class="btn-3d-primary">Crear cuenta</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- SECCIÓN HERO 3D -->
+  <main class="hero-3d">
+    <div class="landing-container">
+      <div class="hero-grid-3d">
+        
+        <!-- Columna Texto e Información -->
+        <div class="hero-content-3d">
+          <div class="badge-3d">
+            <span class="dot-live"></span>
+            <span>Sistema Institucional QR 2.0</span>
+          </div>
+
+          <h1 class="hero-title-3d">
+            Control de asistencia<br />
+            <span class="text-gradient-green">claro, justo y moderno</span>
+          </h1>
+
+          <p class="hero-desc-3d">
+            Marca tu jornada en segundos con tu código QR único, gestiona excusas institucionales y monitorea la puntualidad en tiempo real.
+          </p>
+
+          <div class="cta-group-3d">
+            <a href="Templates/registro.html" class="btn-3d-primary">Empezar ahora</a>
+            <a href="Templates/iniciar.html" class="btn-3d-secondary">Ya tengo cuenta</a>
+          </div>
+        </div>
+
+        <!-- Columna Muestra Visual 3D -->
+        <div class="scene-3d">
+          <div class="card-3d-wrapper">
+            <div class="qr-mockup">
+              <div class="qr-frame">
+                <div class="qr-laser"></div>
+                <!-- Simulación gráfica Vectorial del Código QR -->
+                <svg width="120" height="120" viewBox="0 0 24 24" fill="#064e3b">
+                  <path d="M3 3h8v8H3zm2 2v4h4V5zm8-2h8v8h-8zm2 2v4h4V5zM3 13h8v8H3zm2 2v4h4v-4zm13-2h3v2h-3zm-3 0h2v3h-2zm3 3h3v5h-3zm-6 2h3v3h-3zm3 1h2v2h-2z"/>
+                </svg>
+              </div>
+              <p style="color: #064e3b; font-weight: 700; font-size: 0.95rem;">Escanea para Marcar</p>
+              <p style="color: #059669; font-size: 0.8rem; margin-top: 2px;">Entrada / Salida Automática</p>
+            </div>
+
+            <!-- Flotante Inmersivo de Estado -->
+            <div class="floating-badge-3d">
+              <div class="dot-live"></div>
+              <div>
+                <p style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Estado Servidor</p>
+                <p style="font-size: 0.85rem; font-weight: 700; color: var(--text-main);">PostgreSQL Activo</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="footer-3d">
+    <div class="landing-container">
+      <p>Sistema de Control de Asistencia Docente · Educación Institucional en Colombia</p>
+    </div>
+  </footer>
+
+</body>
+</html>
