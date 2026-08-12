@@ -17,6 +17,14 @@
 
 BEGIN;
 
+-- ─────────────────────────── RECREACIÓN ──────────────────────────────
+-- Este script deja la base completamente limpia antes de crear el
+-- esquema. Úselo sobre una base dedicada al sistema.
+DROP SCHEMA IF EXISTS public CASCADE;
+CREATE SCHEMA public;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO public;
+
 -- ─────────────────────────── Extensiones ──────────────────────────────
 -- gen_random_uuid() para los identificadores; unaccent para búsquedas
 -- que deban ignorar tildes.
@@ -220,6 +228,30 @@ CREATE TABLE "asistencias" (
 );
 
 -- CreateTable
+CREATE TABLE "registros_auditoria" (
+    "id" UUID NOT NULL,
+    "usuario_id" UUID,
+    "user_email" VARCHAR(180),
+    "user_name" VARCHAR(240),
+    "accion" "accion_auditoria" NOT NULL,
+    "modulo" VARCHAR(80) NOT NULL,
+    "id_entidad" UUID,
+    "descripcion" VARCHAR(500),
+    "direccion_ip" VARCHAR(60),
+    "agente_usuario" VARCHAR(400),
+    "dispositivo" VARCHAR(120),
+    "metadatos" JSONB NOT NULL DEFAULT '{}'::jsonb,
+    "creado_en" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "actualizado_en" TIMESTAMPTZ(3) NOT NULL,
+
+    CONSTRAINT "registros_auditoria_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateIndex
+CREATE INDEX "registros_auditoria_usuario_id_idx" ON "registros_auditoria"("usuario_id");
+CREATE INDEX "registros_auditoria_accion_idx" ON "registros_auditoria"("accion");
+CREATE INDEX "registros_auditoria_modulo_idx" ON "registros_auditoria"("modulo");
+CREATE INDEX "registros_auditoria_creado_en_idx" ON "registros_auditoria"("creado_en");
 
 -- CreateTable
 CREATE TABLE "configuraciones" (
@@ -395,7 +427,7 @@ ALTER TABLE "asistencias" ADD CONSTRAINT "asistencias_teacher_id_fkey" FOREIGN K
 ALTER TABLE "asistencias" ADD CONSTRAINT "asistencias_schedule_id_fkey" FOREIGN KEY ("horario_id") REFERENCES "horarios"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-
+ALTER TABLE "registros_auditoria" ADD CONSTRAINT "registros_auditoria_usuario_id_fkey" FOREIGN KEY ("usuario_id") REFERENCES "usuarios"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- ═══════════════════ GENERACIÓN DE IDENTIFICADORES ════════════════════
 -- La aplicación genera los UUID, pero al insertar directamente por SQL
@@ -411,6 +443,7 @@ ALTER TABLE "jornadas" ALTER COLUMN "id" SET DEFAULT gen_random_uuid();
 ALTER TABLE "horarios" ALTER COLUMN "id" SET DEFAULT gen_random_uuid();
 ALTER TABLE "asistencias" ALTER COLUMN "id" SET DEFAULT gen_random_uuid();
 ALTER TABLE "configuraciones" ALTER COLUMN "id" SET DEFAULT gen_random_uuid();
+ALTER TABLE "registros_auditoria" ALTER COLUMN "id" SET DEFAULT gen_random_uuid();
 
 
 -- ═════════════════════ RESTRICCIONES DE VALIDACIÓN ════════════════════
@@ -483,6 +516,7 @@ CREATE INDEX "asignaturas_busqueda_idx" ON "asignaturas" (lower("nombre"));
 CREATE OR REPLACE VIEW "v_asistencia_detallada" AS
 SELECT
   a."id",
+  a."docente_id" AS docente_id,
   a."fecha"                                        AS fecha,
   a."registrado_en"                               AS registrado_en,
   t."codigo"                                        AS codigo_docente,
@@ -585,6 +619,7 @@ COMMENT ON TABLE "jornadas" IS 'Jornadas institucionales sobre las que se arman 
 COMMENT ON TABLE "horarios" IS 'Franja horaria de un docente. Contra ella se mide la puntualidad.';
 COMMENT ON TABLE "asistencias" IS 'Marcaciones de entrada y salida. Es la evidencia del sistema.';
 COMMENT ON TABLE "configuraciones" IS 'Parámetros del sistema editables sin desplegar código.';
+COMMENT ON TABLE "registros_auditoria" IS 'Registro de acciones importantes realizadas por los usuarios.';
 
 
 -- ═══════════════════════════ DATOS INICIALES ══════════════════════════
@@ -661,30 +696,45 @@ INSERT INTO "roles" ("id", "nombre", "descripcion", "es_sistema", "estado", "cre
   (gen_random_uuid(), 'DOCENTE', 'Registra su propia entrada y salida y consulta su historial.', TRUE, 'ACTIVO', NOW(), NOW());
 
 -- ── Asignación de permisos a cada rol ──
--- SUPER_ADMIN: 60 permisos
+-- SUPER_ADMIN: todos los permisos activos.
 INSERT INTO "rol_permisos" ("rol_id", "permiso_id", "creado_en")
 SELECT r."id", p."id", NOW()
 FROM "roles" r CROSS JOIN "permisos" p
-WHERE r."nombre" = 'SUPER_ADMIN'
+WHERE r."nombre" = 'SUPER_ADMIN';
 
--- ADMINISTRADOR: 51 permisos
+-- ADMINISTRADOR: gestión operativa completa; no administra el catálogo
+-- de permisos. Tampoco puede eliminar/inactivar roles del sistema.
 INSERT INTO "rol_permisos" ("rol_id", "permiso_id", "creado_en")
 SELECT r."id", p."id", NOW()
 FROM "roles" r CROSS JOIN "permisos" p
 WHERE r."nombre" = 'ADMINISTRADOR'
+  AND p."codigo" NOT LIKE 'permisos.%'
+  AND p."codigo" NOT IN ('roles.eliminar', 'roles.inactivar');
 
--- COORDINADOR: 18 permisos
+-- COORDINADOR: supervisa docentes, horarios, asistencia y reportes,
+-- además de consultar asignaturas/jornadas y el panel.
 INSERT INTO "rol_permisos" ("rol_id", "permiso_id", "creado_en")
 SELECT r."id", p."id", NOW()
 FROM "roles" r CROSS JOIN "permisos" p
 WHERE r."nombre" = 'COORDINADOR'
+  AND p."codigo" IN (
+    'panel.consultar',
+    'docentes.consultar', 'docentes.crear', 'docentes.editar',
+    'docentes.activar', 'docentes.inactivar', 'docentes.exportar',
+    'asignaturas.consultar',
+    'jornadas.consultar',
+    'horarios.consultar', 'horarios.crear', 'horarios.editar',
+    'horarios.exportar',
+    'asistencia.consultar', 'asistencia.crear', 'asistencia.exportar',
+    'reportes.consultar', 'reportes.exportar'
+  );
 
--- DOCENTE: 1 permisos
+-- DOCENTE: únicamente registra su propia asistencia.
 INSERT INTO "rol_permisos" ("rol_id", "permiso_id", "creado_en")
 SELECT r."id", p."id", NOW()
 FROM "roles" r CROSS JOIN "permisos" p
 WHERE r."nombre" = 'DOCENTE'
-  AND p."codigo" IN ('asistencia.propia');
+  AND p."codigo" = 'asistencia.propia';
 
 -- ── Usuario inicial (SUPER_ADMIN) ──
 -- Contraseña: Admin123*  — cámbiela tras el primer ingreso.
@@ -721,9 +771,12 @@ COMMIT;
 -- ═══════════════════════════════════════════════════════════════════════
 --  Comprobación rápida tras la ejecución:
 --
---    SELECT COUNT(*) FROM permissions;   -- esperado: 60
---    SELECT COUNT(*) FROM roles;         -- esperado: 4
---    SELECT COUNT(*) FROM users;         -- esperado: 1
---    SELECT COUNT(*) FROM shifts;        -- esperado: 3
---    SELECT COUNT(*) FROM subjects;      -- esperado: 6
+--    SELECT COUNT(*) FROM "permisos";    -- esperado: 60
+--    SELECT COUNT(*) FROM "roles";       -- esperado: 4
+--    SELECT COUNT(*) FROM "usuarios";    -- esperado: 1
+--    SELECT COUNT(*) FROM "jornadas";    -- esperado: 3
+--    SELECT COUNT(*) FROM "asignaturas"; -- esperado: 6
+--    SELECT r."nombre", COUNT(rp."permiso_id")
+--    FROM "roles" r LEFT JOIN "rol_permisos" rp ON rp."rol_id"=r."id"
+--    GROUP BY r."nombre" ORDER BY r."nombre";
 -- ═══════════════════════════════════════════════════════════════════════
