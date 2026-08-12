@@ -46,7 +46,8 @@ import bcrypt # Asegúrate de tener instalado bcrypt: pip install bcrypt
 @app.route('/iniciar', methods=['GET', 'POST'])
 def iniciar_sesion():
     if request.method == 'POST':
-        data = request.get_json() or request.form
+        # Intentar obtener datos tanto de JSON (Fetch) como de formulario tradicional
+        data = request.get_json(silent=True) or request.form
         email = data.get('email')
         password = data.get('password')
 
@@ -70,10 +71,9 @@ def iniciar_sesion():
             if usuario['estado'] != 'ACTIVO':
                 return jsonify({"status": "error", "message": "Cuenta inactivada. Consulta al administrador."}), 403
 
-            # Verificar contraseña con hash bcrypt o texto plano
             contrasena_db = usuario['contrasena']
             
-            # Verificación compatible con bcrypt
+            # Verificar contraseña con hash bcrypt o texto plano
             es_valida = bcrypt.checkpw(password.encode('utf-8'), contrasena_db.encode('utf-8')) if contrasena_db.startswith('$2b$') else (password == contrasena_db)
 
             if es_valida:
@@ -90,6 +90,7 @@ def iniciar_sesion():
             conn.close()
 
     return render_template('Templates/iniciar.html')
+
 
 
 @app.route('/registro', methods=['GET', 'POST'])
