@@ -41,12 +41,56 @@ def index():
 def inicio():
     return render_template('inicio.html')
 
+import bcrypt # Asegúrate de tener instalado bcrypt: pip install bcrypt
+
 @app.route('/iniciar', methods=['GET', 'POST'])
 def iniciar_sesion():
     if request.method == 'POST':
-        # Aquí implementaremos más adelante la validación bcrypt contra la tabla 'usuarios'
-        pass
-    return render_template('iniciar.html')
+        data = request.get_json() or request.form
+        email = data.get('email')
+        password = data.get('password')
+
+        if not email or not password:
+            return jsonify({"status": "error", "message": "Por favor completa todos los campos"}), 400
+
+        conn = get_db_connection()
+        if not conn:
+            return jsonify({"status": "error", "message": "Error de conexión con la base de datos"}), 500
+
+        try:
+            cursor = conn.cursor(cursor_factory=RealDictCursor)
+            
+            # Buscar el usuario por su correo
+            cursor.execute("SELECT id, nombre, correo, contrasena, estado FROM usuarios WHERE correo = %s", (email,))
+            usuario = cursor.fetchone()
+
+            if not usuario:
+                return jsonify({"status": "error", "message": "El usuario no existe"}), 404
+
+            if usuario['estado'] != 'ACTIVO':
+                return jsonify({"status": "error", "message": "Cuenta inactivada. Consulta al administrador."}), 403
+
+            # Verificar contraseña con hash bcrypt o texto plano
+            contrasena_db = usuario['contrasena']
+            
+            # Verificación compatible con bcrypt
+            es_valida = bcrypt.checkpw(password.encode('utf-8'), contrasena_db.encode('utf-8')) if contrasena_db.startswith('$2b$') else (password == contrasena_db)
+
+            if es_valida:
+                session['usuario_id'] = str(usuario['id'])
+                session['usuario_nombre'] = usuario['nombre']
+                return jsonify({"status": "success", "message": "Acceso concedido", "redirect": "/dashboard"})
+            else:
+                return jsonify({"status": "error", "message": "Contraseña incorrecta"}), 401
+
+        except Exception as e:
+            return jsonify({"status": "error", "message": str(e)}), 500
+        finally:
+            cursor.close()
+            conn.close()
+
+    return render_template('Templates/iniciar.html')
+
 
 @app.route('/registro', methods=['GET', 'POST'])
 def registro():
