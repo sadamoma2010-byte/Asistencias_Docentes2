@@ -13,14 +13,14 @@
   
   <!-- Hoja de estilos CSS personalizada -->
   <link rel="stylesheet" href="css/css.css">
-  
-  <style>
-    /* Estilos específicos para la Landing Page (Index) para no contaminar el dashboard */
+    <style>
+    /* Estilos heredando estrictamente la paleta de css/css.css */
     .landing-body {
       background-color: var(--bg-color);
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+      color: var(--text-color);
     }
     
     .landing-container {
@@ -30,7 +30,6 @@
       padding: 0 1.5rem;
     }
 
-    /* Navbar de la Landing */
     .landing-header {
       background-color: transparent;
       padding: 1.5rem 0;
@@ -74,7 +73,6 @@
       color: var(--primary-color);
     }
 
-    /* Hero Section - A dos columnas en Desktop */
     .hero-section {
       flex: 1;
       display: flex;
@@ -103,7 +101,8 @@
 
     .hero-content p {
       font-size: 1.125rem;
-      color: #4B5563; /* Gris suave */
+      color: var(--text-color);
+      opacity: 0.8; /* Suavizamos el color del texto base en lugar de usar un gris fijo */
       line-height: 1.6;
       margin-bottom: 2.5rem;
     }
@@ -128,31 +127,31 @@
 
     .btn-outline:hover {
       background-color: var(--primary-color);
-      color: white;
+      color: var(--card-bg);
     }
 
-    /* Espacio preparado para la futura imagen */
     .hero-image-placeholder {
       width: 100%;
       height: 400px;
-      background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+      background: linear-gradient(135deg, var(--bg-color) 0%, var(--card-bg) 100%);
+      border: 2px dashed var(--primary-color);
       border-radius: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--primary-color);
       font-weight: 600;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
 
     .landing-footer {
       text-align: center;
       padding: 2rem 0;
-      color: #6B7280;
+      color: var(--text-color);
+      opacity: 0.6;
       font-size: 0.875rem;
     }
 
-    /* Responsive Landing */
     @media (max-width: 768px) {
       .hero-grid {
         grid-template-columns: 1fr;
@@ -169,10 +168,11 @@
       }
 
       .landing-actions .btn-link {
-        display: none; /* Ocultar texto de login en móvil para ahorrar espacio */
+        display: none;
       }
     }
   </style>
+
 </head>
 <body class="landing-body">
 
