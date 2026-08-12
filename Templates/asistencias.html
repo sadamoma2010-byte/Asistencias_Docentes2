@@ -1,105 +1,215 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Asistencia - Asistencia Docente</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Font: Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-    }
-  </style>
-</head>
-<body class="min-h-screen bg-gradient-to-br from-[#dcfce7] via-[#f0fdf4] to-[#d8f9e2] text-gray-800 antialiased selection:bg-emerald-200">
-
-  <!-- BARRA DE NAVEGACIÓN SUPERIOR -->
-  <header class="w-full bg-white/70 backdrop-blur-md border-b border-white/60 px-4 md:px-8 py-3 flex items-center justify-between sticky top-0 z-50">
-    <!-- Logo y Título -->
-    <div class="flex items-center gap-3">
-      <div class="bg-emerald-600 text-white p-2 rounded-xl shadow-sm">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 01-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-        </svg>
-      </div>
-      <div>
-        <h1 class="text-xs font-bold text-gray-900 leading-none">Asistencia Docente</h1>
-        <p class="text-[10px] text-gray-500 mt-0.5">Control inteligente • Colombia</p>
-      </div>
-    </div>
-
-    <!-- Menú Central (Pestaña "Asistencia" Activa) -->
-    <nav class="hidden md:flex items-center bg-gray-100/80 p-1 rounded-full border border-gray-200/60 text-xs font-medium">
-      <a href="inicio.html" class="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-gray-600 hover:text-gray-900 transition">
-        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-        Inicio
-      </a>
-      <a href="asistencias.html" class="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-emerald-600 text-white shadow-sm font-semibold transition">
-        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-        Asistencia
-      </a>
-      <a href="excusas.html" class="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-gray-600 hover:text-gray-900 transition">
-        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-        Excusas
-      </a>
-      <a href="dashboard.html" class="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-gray-600 hover:text-gray-900 transition">
-        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
-        Dashboard
-      </a>
-      <a href="codigo qr institucional.html" class="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-gray-600 hover:text-gray-900 transition">
-        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
-        QR
-      </a>
-    </nav>
-
-    <!-- Usuario y Opciones -->
-    <div class="flex items-center gap-3">
-      <div class="text-right hidden sm:block">
-        <p class="text-xs font-bold text-gray-900 leading-none">Samuel david morales maldonado</p>
-        <p class="text-[10px] text-gray-500 mt-0.5">Docente</p>
-      </div>
-      <button class="p-1.5 text-gray-600 hover:text-gray-900 rounded-full hover:bg-black/5 transition" aria-label="Cambiar tema">
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
-      </button>
-      <button class="p-1.5 text-gray-600 hover:text-red-600 rounded-full hover:bg-black/5 transition" aria-label="Cerrar sesión">
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
-      </button>
-    </div>
-  </header>
-
-  <!-- CONTENIDO PRINCIPAL -->
-  <main class="max-w-6xl mx-auto px-4 md:px-8 py-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistencia Docente - Historial</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Fuente Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Título y Subtítulo -->
-    <div class="mb-6">
-      <h2 class="text-2xl font-extrabold text-gray-900">Asistencia</h2>
-      <p class="text-xs text-gray-500 mt-1">Tu historial reciente de marcaje</p>
-    </div>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at bottom right, #c1e6ce 0%, #dcf0e2 40%, #f4fbf6 100%);
+            margin: 0;
+            padding: 0;
+        }
+        .card-shadow {
+            box-shadow: 0 10px 40px -10px rgba(15, 130, 65, 0.08);
+        }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden text-gray-800">
 
-    <!-- Filtros de Pestañas (Hoy / Últimos 30 días) -->
-    <div class="flex items-center gap-1 bg-white/40 backdrop-blur-sm p-1 rounded-full w-fit border border-white/60 mb-6 text-xs font-medium text-gray-600">
-      <button class="px-4 py-1.5 rounded-full bg-white text-gray-900 shadow-sm font-semibold transition">
-        Hoy
-      </button>
-      <button class="px-4 py-1.5 rounded-full hover:text-gray-900 transition">
-        Últimos 30 días
-      </button>
-    </div>
+    <!-- BARRA LATERAL (SIDEBAR) -->
+    <aside class="w-[260px] bg-white/60 backdrop-blur-md h-full flex flex-col justify-between border-r border-white/40 shadow-sm z-10">
+        <div class="px-6 py-8">
+            <!-- Logo -->
+            <div class="flex items-center gap-3 mb-10 pl-2">
+                <div class="bg-gray-800 p-2 rounded-lg text-white">
+                    <i class="ph-fill ph-graduation-cap text-xl"></i>
+                </div>
+                <div>
+                    <h2 class="font-bold text-sm leading-tight text-gray-900">Asistencia Docente</h2>
+                    <p class="text-[10px] text-gray-500 font-medium">IED Los Laureles</p>
+                </div>
+            </div>
 
-    <!-- Tarjeta de Contenido / Estado Vacío -->
-    <section class="w-full bg-white/80 backdrop-blur-md rounded-3xl p-6 border border-white/80 shadow-xl shadow-emerald-950/5">
-      <p class="text-xs text-gray-500 font-medium">
-        Tu registro de hoy aparecerá aquí cuando marques entrada.
-      </p>
-    </section>
+            <!-- Menú de Navegación -->
+            <nav class="flex flex-col gap-2">
+                <a href="#" class="flex items-center gap-3 text-gray-600 hover:bg-white/60 px-4 py-3 rounded-2xl font-medium text-sm transition">
+                    <i class="ph ph-house text-lg text-gray-400"></i>
+                    Inicio
+                </a>
+                <!-- Elemento Activo: Asistencia -->
+                <a href="#" class="flex items-center gap-3 bg-[#0F8241] text-white px-4 py-3 rounded-2xl font-medium text-sm transition shadow-md shadow-green-900/20">
+                    <i class="ph-fill ph-calendar-check text-lg"></i>
+                    Asistencia
+                </a>
+                <a href="#" class="flex items-center gap-3 text-gray-600 hover:bg-white/60 px-4 py-3 rounded-2xl font-medium text-sm transition">
+                    <i class="ph ph-file-text text-lg text-gray-400"></i>
+                    Excusas
+                </a>
+                <a href="#" class="flex items-center gap-3 text-gray-600 hover:bg-white/60 px-4 py-3 rounded-2xl font-medium text-sm transition">
+                    <i class="ph ph-squares-four text-lg text-gray-400"></i>
+                    Dashboard
+                </a>
+                <a href="#" class="flex items-center gap-3 text-gray-600 hover:bg-white/60 px-4 py-3 rounded-2xl font-medium text-sm transition">
+                    <i class="ph ph-qr-code text-lg text-gray-400"></i>
+                    QR
+                </a>
+            </nav>
+        </div>
 
-  </main>
+        <!-- Perfil Usuario Footer -->
+        <div class="p-6 mb-2">
+            <div class="flex items-center justify-between gap-3 bg-white/40 p-2 rounded-2xl">
+                <div class="flex items-center gap-3 overflow-hidden">
+                    <div class="w-8 h-8 rounded-full bg-gray-200 flex-shrink-0"></div>
+                    <div class="overflow-hidden">
+                        <p id="perfil-nombre" class="text-xs font-bold truncate text-gray-900">Samuel david...</p>
+                        <p id="perfil-rol" class="text-[10px] text-gray-500">Docente (Usuario)</p>
+                    </div>
+                </div>
+                <div class="flex gap-1 text-gray-400">
+                    <button class="p-1.5 hover:text-gray-700 hover:bg-white rounded-lg transition"><i class="ph ph-gear text-sm"></i></button>
+                    <button class="p-1.5 hover:text-gray-700 hover:bg-white rounded-lg transition"><i class="ph ph-sign-out text-sm"></i></button>
+                </div>
+            </div>
+        </div>
+    </aside>
 
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="flex-1 p-10 overflow-y-auto flex flex-col">
+        <!-- Encabezado y Selector de Prueba -->
+        <div class="flex justify-between items-start mb-6">
+            <div>
+                <h1 class="text-[28px] tracking-tight font-bold text-gray-900 mb-1">Asistencia</h1>
+                <p class="text-sm text-gray-600">Tu historial reciente de marcaje</p>
+            </div>
+
+            <!-- SIMULADOR DE ROLES (Solo para propósitos de prueba de la lógica) -->
+            <div class="bg-white/80 p-3 rounded-xl border border-white shadow-sm flex items-center gap-3">
+                <label class="text-xs font-bold text-gray-500 uppercase tracking-wide">Simular vista como:</label>
+                <select id="roleSelector" class="bg-gray-100 border-none text-sm font-medium rounded-lg p-2 outline-none cursor-pointer focus:ring-2 focus:ring-green-500">
+                    <option value="usuario">Profesor (Usuario)</option>
+                    <option value="moderador">Secretaria (Moderador)</option>
+                    <option value="admin">Rector (Administrador)</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Pestañas (Tabs) -->
+        <div class="flex bg-white/50 backdrop-blur-sm p-1 rounded-xl w-max mb-6 border border-white/60 shadow-sm">
+            <button class="px-5 py-1.5 text-sm font-medium bg-white rounded-lg shadow-sm text-gray-800">Hoy</button>
+            <button class="px-5 py-1.5 text-sm font-medium text-gray-500 hover:text-gray-700 transition">Últimos 30 días</button>
+        </div>
+
+        <!-- CONTENEDOR DE ASISTENCIAS DINÁMICO -->
+        <div id="contenedor-asistencias" class="max-w-4xl flex flex-col gap-3">
+            <!-- Los registros se inyectarán aquí vía JavaScript -->
+        </div>
+    </main>
+
+    <!-- LÓGICA DE ROLES Y FILTRADO (JAVASCRIPT) -->
+    <script>
+        // 1. BASE DE DATOS SIMULADA DE ASISTENCIAS
+        // Aquí están todos los registros del colegio hoy
+        const baseDeDatosAsistencias = [
+            { id: 101, ownerId: 1, name: "Samuel David (Tú)", role: "usuario", time: "07:15 AM", status: "Entrada" },
+            { id: 102, ownerId: 2, name: "María Fernanda", role: "usuario", time: "07:22 AM", status: "Entrada" },
+            { id: 103, ownerId: 3, name: "Carlos López", role: "usuario", time: "07:30 AM", status: "Entrada" },
+            { id: 104, ownerId: 4, name: "Secretaria Elena", role: "moderador", time: "06:45 AM", status: "Entrada" },
+            { id: 105, ownerId: 5, name: "Rector Alfonso", role: "admin", time: "06:30 AM", status: "Entrada" }
+        ];
+
+        // 2. FUNCIÓN PRINCIPAL DE FILTRADO
+        function renderizarAsistencias() {
+            const roleSeleccionado = document.getElementById('roleSelector').value;
+            const contenedor = document.getElementById('contenedor-asistencias');
+            const perfilNombre = document.getElementById('perfil-nombre');
+            const perfilRol = document.getElementById('perfil-rol');
+            
+            let datosFiltrados = [];
+
+            // APLICACIÓN DE LAS REGLAS DE NEGOCIO SOLICITADAS:
+            
+            if (roleSeleccionado === 'usuario') {
+                // REGLA 1: Solo ve sus propias asistencias (Ej. Asumimos que el usuario actual es ID: 1)
+                datosFiltrados = baseDeDatosAsistencias.filter(registro => registro.ownerId === 1);
+                perfilNombre.innerText = "Samuel david...";
+                perfilRol.innerText = "Docente (Usuario)";
+            } 
+            else if (roleSeleccionado === 'moderador') {
+                // REGLA 2: Ve las de usuarios y las de moderadores (incluyéndose). Ignora las del admin.
+                datosFiltrados = baseDeDatosAsistencias.filter(registro => 
+                    registro.role === 'usuario' || registro.role === 'moderador'
+                );
+                perfilNombre.innerText = "Elena Gómez";
+                perfilRol.innerText = "Secretaria (Moderador)";
+            } 
+            else if (roleSeleccionado === 'admin') {
+                // REGLA 3: Ve absolutamente todo.
+                datosFiltrados = baseDeDatosAsistencias;
+                perfilNombre.innerText = "Alfonso Pérez";
+                perfilRol.innerText = "Rector (Admin)";
+            }
+
+            // 3. RENDERIZADO EN PANTALLA (HTML DINÁMICO)
+            contenedor.innerHTML = ''; // Limpiar contenedor
+
+            if (datosFiltrados.length === 0) {
+                // Estado vacío (Idéntico a la imagen original cuando no hay datos)
+                contenedor.innerHTML = `
+                    <div class="bg-white/90 backdrop-blur-sm rounded-2xl px-5 py-4 border border-white text-gray-500 text-[13px] shadow-sm">
+                        Tu registro de hoy aparecerá aquí cuando marques entrada
+                    </div>
+                `;
+            } else {
+                // Mostrar lista
+                datosFiltrados.forEach(registro => {
+                    // Diseño visual según el rol de la tarjeta para identificar fácilmente
+                    let badgeColor = registro.role === 'admin' ? 'bg-purple-100 text-purple-700' : 
+                                     registro.role === 'moderador' ? 'bg-blue-100 text-blue-700' : 
+                                     'bg-gray-100 text-gray-600';
+                                     
+                    const htmlRegistro = `
+                        <div class="bg-white/90 backdrop-blur-sm rounded-2xl p-4 border border-white flex justify-between items-center shadow-sm hover:shadow-md transition card-shadow">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
+                                    <i class="ph-fill ph-user"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-sm text-gray-900">${registro.name}</p>
+                                    <div class="flex items-center gap-2 mt-0.5">
+                                        <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full ${badgeColor}">
+                                            ${registro.role}
+                                        </span>
+                                        <span class="text-xs text-gray-400 font-medium">Marcó a las ${registro.time}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 bg-[#e6f4eb] text-[#0F8241] px-4 py-2 rounded-xl font-bold text-xs">
+                                <i class="ph-bold ph-arrow-right"></i>
+                                ${registro.status}
+                            </div>
+                        </div>
+                    `;
+                    contenedor.innerHTML += htmlRegistro;
+                });
+            }
+        }
+
+        // 4. EVENT LISTENERS
+        // Escuchar cuando el usuario cambia el rol en el select
+        document.getElementById('roleSelector').addEventListener('change', renderizarAsistencias);
+
+        // Renderizar por primera vez al cargar la página
+        renderizarAsistencias();
+    </script>
 </body>
 </html>
