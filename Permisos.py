@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+import webview
+
+# Definimos todo el contenido HTML/JS como una cadena de texto dentro de Python
+HTML_CONTENT = """<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -50,7 +53,7 @@
 
                 <div data-permiso="CREAR_CUENTA_NUEVA" class="mt-4 pt-4 border-t border-gray-200">
                     <p class="text-xs text-amber-700 bg-amber-50 p-2 rounded mb-2 border border-amber-200 font-medium">
-                        🛡️ Modulo restringido: Creación de usuarios
+                        🛡️ Módulo restringido: Creación de usuarios
                     </p>
                     <button class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 rounded text-sm transition flex items-center justify-center gap-1">
                         ➕ Crear Nueva Cuenta de Usuario
@@ -116,7 +119,7 @@
                             </tr>
                         </thead>
                         <tbody id="tablaAsistencias" class="text-sm divide-y divide-gray-100">
-                            </tbody>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -124,10 +127,9 @@
     </div>
 
     <script>
-        // 1. MAPEO DE PERMISOS ACTUALIZADO
         const PERMISOS_POR_ROL = {
             rector: [
-                'CREAR_CUENTA_NUEVA', // Permiso exclusivo del Rector
+                'CREAR_CUENTA_NUEVA',
                 'VER_TODAS_ASISTENCIAS_DOCENTES',
                 'VER_ASISTENCIAS_DOCENTES',
                 'VER_ASISTENCIA_RECTOR',
@@ -154,7 +156,6 @@
             ]
         };
 
-        // 2. BASE DE DATOS SIMULADA
         const dbAsistencias = [
             { id: 1, idDocente: 101, nombre: "Juan Pérez", rol: "docente", llegada: "06:50 AM", salida: "02:00 PM", estado: "Asistió completo" },
             { id: 2, idDocente: 102, nombre: "María Gómez", rol: "docente", llegada: "07:15 AM", salida: "--:--", estado: "Llegó tarde" },
@@ -168,12 +169,10 @@
             idUsuario: 999
         };
 
-        // 3. VALIDACIÓN DE PERMISOS
         function tienePermiso(rolUsuario, permiso) {
             return PERMISOS_POR_ROL[rolUsuario]?.includes(permiso) || false;
         }
 
-        // 4. CONTROL DE VISIBILIDAD HTML
         function aplicarPermisosVisibilidad() {
             document.querySelectorAll('[data-permiso]').forEach(elemento => {
                 const permisoRequerido = elemento.getAttribute('data-permiso');
@@ -185,14 +184,12 @@
                 }
             });
 
-            // Visibilidad de columna de acciones en la tabla
             const thAcciones = document.querySelector('.th-acciones');
             if (thAcciones) {
                 thAcciones.style.display = tienePermiso(sesionActual.rol, 'EDITAR_REGISTRO_ASISTENCIA') ? 'table-cell' : 'none';
             }
         }
 
-        // 5. FILTRADO DE ASISTENCIAS
         function filtrarAsistencias(rolUsuario, asistencias, idDocenteActual) {
             if (rolUsuario === 'rector') {
                 return asistencias;
@@ -204,7 +201,6 @@
             return [];
         }
 
-        // 6. RENDERIZADO EN PANTALLA
         function renderizarDatos() {
             const asistenciasFiltradas = filtrarAsistencias(sesionActual.rol, dbAsistencias, sesionActual.idUsuario);
             const tbody = document.getElementById('tablaAsistencias');
@@ -242,7 +238,6 @@
             }
         }
 
-        // CAMBIO DE SESIÓN (SIMULADOR)
         function cambiarSesion() {
             const selector = document.getElementById('selectorRol');
             const nuevoRol = selector.value;
@@ -264,3 +259,12 @@
     </script>
 </body>
 </html>
+"""
+
+def main():
+    # Crea una ventana de escritorio ejecutando la aplicación web
+    webview.create_window('Sistema de Asistencia QR - Control de Roles', html=HTML_CONTENT, width=1200, height=800)
+    webview.start()
+
+if __name__ == '__main__':
+    main()
