@@ -1,125 +1,570 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Excusas - Asistencia Docente</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Font: Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-    }
-  </style>
-</head>
-<body class="min-h-screen bg-gradient-to-br from-[#dcfce7] via-[#f0fdf4] to-[#d8f9e2] text-gray-800 antialiased selection:bg-emerald-200">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excusas - Asistencia Docente</title>
 
-    <!-- BARRA LATERAL (SIDEBAR) -->
-    <aside class="w-[260px] bg-white/60 backdrop-blur-md h-full flex flex-col justify-between border-r border-white/40 shadow-sm z-10">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Fuente Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(
+                circle at bottom right,
+                #c1e6ce 0%,
+                #dcf0e2 40%,
+                #f4fbf6 100%
+            );
+            margin: 0;
+            padding: 0;
+        }
+
+        .card-shadow {
+            box-shadow: 0 10px 40px -10px rgba(15, 130, 65, 0.08);
+        }
+
+        .sidebar {
+            width: 260px;
+            min-width: 260px;
+        }
+    </style>
+</head>
+
+<body class="flex h-screen overflow-hidden text-gray-800">
+
+    <!-- ========================================================= -->
+    <!-- BARRA LATERAL -->
+    <!-- ========================================================= -->
+
+    <aside class="sidebar bg-white/60 backdrop-blur-md h-full flex flex-col justify-between border-r border-white/40 shadow-sm z-10">
+
+        <!-- PARTE SUPERIOR DEL SIDEBAR -->
         <div class="px-6 py-8">
-            <!-- Logo -->
+
+            <!-- LOGO -->
             <div class="flex items-center gap-3 mb-10 pl-2">
+
                 <div class="bg-gray-800 p-2 rounded-lg text-white">
                     <i class="ph-fill ph-graduation-cap text-xl"></i>
                 </div>
+
                 <div>
-                    <h2 class="font-bold text-sm leading-tight text-gray-900">Asistencia Docente</h2>
-                    <p class="text-[10px] text-gray-500 font-medium">IED Los Laureles</p>
+                    <h2 class="font-bold text-sm leading-tight text-gray-900">
+                        Asistencia Docente
+                    </h2>
+
+                    <p class="text-[10px] text-gray-500 font-medium">
+                        IED Los Laureles
+                    </p>
                 </div>
+
             </div>
 
-    <!-- Logo y Título -->
-    <div class="flex items-center gap-3">
-      <div class="bg-emerald-600 text-white p-2 rounded-xl shadow-sm">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 01-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-        </svg>
-      </div>
-      <div>
-        <h1 class="text-xs font-bold text-gray-900 leading-none">Asistencia Docente</h1>
-        <p class="text-[10px] text-gray-500 mt-0.5">Control Inteligente • Colombia</p>
-      </div>
-    </div>
 
-    <!-- Menú Central -->
-    <nav class="hidden md:flex items-center bg-gray-100/80 p-1 rounded-full border border-gray-200/60 text-xs font-medium">
-      <a href="inicio.html" class="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-gray-600 hover:text-gray-900 transition">
-        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-        Inicio
-      </a>
-      <a href="asistencias.html" class="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-gray-600 hover:text-gray-900 transition">
-        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-        Asistencia
-      </a>
-      <!-- Pestaña Activa: Excusas -->
-      <a href="excusas.html" class="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-emerald-600 text-white shadow-sm font-semibold transition">
-        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-        Excusas
-      </a>
-      <a href="dashboard.html" class="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-gray-600 hover:text-gray-900 transition">
-        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
-        Dashboard
-      </a>
-      <a href="codigo qr institucional.html" class="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-gray-600 hover:text-gray-900 transition">
-        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
-        QR
-      </a>
-    </nav>
+            <!-- MENÚ DE NAVEGACIÓN -->
+            <nav class="flex flex-col gap-2">
 
-    <!-- Usuario y Acciones -->
-    <div class="flex items-center gap-3">
-      <div class="text-right hidden sm:block">
-        <p class="text-xs font-bold text-gray-900 leading-none">Samuel david morales maldonado</p>
-        <p class="text-[10px] text-gray-500 mt-0.5">Docente</p>
-      </div>
-      <button class="p-1.5 text-gray-600 hover:text-gray-900 rounded-full hover:bg-black/5 transition" aria-label="Cambiar tema">
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
-      </button>
-      <button class="p-1.5 text-gray-600 hover:text-red-600 rounded-full hover:bg-black/5 transition" aria-label="Cerrar sesión">
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
-      </button>
-    </div>
-  </header>
+                <!-- INICIO -->
+                <a href="inicio.html"
+                   class="flex items-center gap-3 text-gray-600 hover:bg-white/60 px-4 py-3 rounded-2xl font-medium text-sm transition">
 
-  <!-- CONTENIDO PRINCIPAL -->
-  <main class="max-w-6xl mx-auto px-4 md:px-8 py-8">
-    
-    <!-- Encabezado de Sección con Botón de Acción -->
-    <div class="flex items-start justify-between gap-4 mb-6">
-      <div>
-        <h2 class="text-2xl font-extrabold text-gray-900">Excusas</h2>
-        <p class="text-xs text-gray-500 mt-1">Justificaciones médicas, administrativas o personales con soporte adjunto.</p>
-      </div>
-      
-      <!-- Botón Nueva Excusa -->
-      <button class="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs px-4 py-2 rounded-full shadow-md shadow-emerald-700/20 active:scale-95 transition">
-        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
-        </svg>
-        Nueva excusa
-      </button>
-    </div>
+                    <i class="ph ph-house text-lg text-gray-400"></i>
 
-    <!-- Tarjeta de Estado Vacío -->
-    <section class="w-full bg-white/80 backdrop-blur-md rounded-3xl py-14 px-6 border border-white/80 shadow-xl shadow-emerald-950/5 flex flex-col items-center justify-center text-center">
-      <!-- Icono de documento -->
-      <div class="p-3 bg-emerald-50 text-emerald-700 rounded-2xl border border-emerald-100/60 mb-3">
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-        </svg>
-      </div>
-      <!-- Texto informativo -->
-      <p class="text-xs text-gray-500 font-medium">
-        Aún no has registrado excusas.
-      </p>
-    </section>
+                    <span>Inicio</span>
+                </a>
 
-  </main>
+
+                <!-- ASISTENCIA -->
+                <a href="asistencias.html"
+                   class="flex items-center gap-3 text-gray-600 hover:bg-white/60 px-4 py-3 rounded-2xl font-medium text-sm transition">
+
+                    <i class="ph ph-calendar-check text-lg text-gray-400"></i>
+
+                    <span>Asistencia</span>
+                </a>
+
+
+                <!-- EXCUSAS - ACTIVA -->
+                <a href="excusas.html"
+                   class="flex items-center gap-3 bg-[#0F8241] text-white px-4 py-3 rounded-2xl font-medium text-sm transition shadow-md shadow-green-900/20">
+
+                    <i class="ph-fill ph-file-text text-lg"></i>
+
+                    <span>Excusas</span>
+                </a>
+
+
+                <!-- DASHBOARD -->
+                <a href="dashboard.html"
+                   class="flex items-center gap-3 text-gray-600 hover:bg-white/60 px-4 py-3 rounded-2xl font-medium text-sm transition">
+
+                    <i class="ph ph-squares-four text-lg text-gray-400"></i>
+
+                    <span>Dashboard</span>
+                </a>
+
+
+                <!-- QR -->
+                <a href="codigo qr institucional.html"
+                   class="flex items-center gap-3 text-gray-600 hover:bg-white/60 px-4 py-3 rounded-2xl font-medium text-sm transition">
+
+                    <i class="ph ph-qr-code text-lg text-gray-400"></i>
+
+                    <span>QR</span>
+                </a>
+
+            </nav>
+
+        </div>
+
+
+        <!-- ===================================================== -->
+        <!-- PERFIL DEL USUARIO -->
+        <!-- ===================================================== -->
+
+        <div class="p-6 mb-2">
+
+            <div class="flex items-center justify-between gap-3 bg-white/40 p-2 rounded-2xl">
+
+                <div class="flex items-center gap-3 overflow-hidden">
+
+                    <!-- Avatar -->
+                    <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                        <i class="ph-fill ph-user text-gray-500 text-sm"></i>
+                    </div>
+
+                    <!-- Datos usuario -->
+                    <div class="overflow-hidden">
+
+                        <p id="perfil-nombre"
+                           class="text-xs font-bold truncate text-gray-900">
+                            Samuel david...
+                        </p>
+
+                        <p id="perfil-rol"
+                           class="text-[10px] text-gray-500">
+                            Docente
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ACCIONES -->
+                <div class="flex gap-1 text-gray-400">
+
+                    <!-- Configuración -->
+                    <button
+                        class="p-1.5 hover:text-gray-700 hover:bg-white rounded-lg transition"
+                        aria-label="Configuración">
+
+                        <i class="ph ph-gear text-sm"></i>
+
+                    </button>
+
+
+                    <!-- Cerrar sesión -->
+                    <button
+                        class="p-1.5 hover:text-red-600 hover:bg-white rounded-lg transition"
+                        aria-label="Cerrar sesión">
+
+                        <i class="ph ph-sign-out text-sm"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ========================================================= -->
+    <!-- CONTENIDO PRINCIPAL -->
+    <!-- ========================================================= -->
+
+    <main class="flex-1 p-10 overflow-y-auto flex flex-col">
+
+
+        <!-- ENCABEZADO -->
+        <div class="flex justify-between items-start mb-6">
+
+            <div>
+
+                <h1 class="text-[28px] tracking-tight font-bold text-gray-900 mb-1">
+                    Excusas
+                </h1>
+
+                <p class="text-sm text-gray-600">
+                    Gestiona tus justificaciones médicas, administrativas o personales.
+                </p>
+
+            </div>
+
+
+            <!-- BOTÓN NUEVA EXCUSA -->
+            <button
+                id="btnNuevaExcusa"
+                class="flex items-center gap-2 bg-[#0F8241] hover:bg-[#0c6d36] text-white px-5 py-2.5 rounded-xl font-semibold text-sm shadow-md shadow-green-900/20 transition active:scale-95">
+
+                <i class="ph-bold ph-plus"></i>
+
+                Nueva excusa
+
+            </button>
+
+        </div>
+
+
+        <!-- ===================================================== -->
+        <!-- FILTROS -->
+        <!-- ===================================================== -->
+
+        <div class="flex flex-wrap items-center gap-3 mb-6">
+
+            <!-- Todas -->
+            <button
+                class="px-4 py-2 bg-white rounded-xl text-xs font-semibold text-gray-800 shadow-sm border border-white">
+
+                Todas
+
+            </button>
+
+
+            <!-- Pendientes -->
+            <button
+                class="px-4 py-2 bg-white/60 hover:bg-white rounded-xl text-xs font-medium text-gray-500 transition">
+
+                Pendientes
+
+            </button>
+
+
+            <!-- Aprobadas -->
+            <button
+                class="px-4 py-2 bg-white/60 hover:bg-white rounded-xl text-xs font-medium text-gray-500 transition">
+
+                Aprobadas
+
+            </button>
+
+
+            <!-- Rechazadas -->
+            <button
+                class="px-4 py-2 bg-white/60 hover:bg-white rounded-xl text-xs font-medium text-gray-500 transition">
+
+                Rechazadas
+
+            </button>
+
+        </div>
+
+
+        <!-- ===================================================== -->
+        <!-- CONTENEDOR DE EXCUSAS -->
+        <!-- ===================================================== -->
+
+        <div id="contenedor-excusas"
+             class="max-w-5xl flex flex-col gap-3">
+
+
+            <!-- ================================================= -->
+            <!-- ESTADO VACÍO -->
+            <!-- ================================================= -->
+
+            <section
+                id="estado-vacio"
+                class="w-full bg-white/90 backdrop-blur-sm rounded-2xl py-16 px-6 border border-white shadow-sm flex flex-col items-center justify-center text-center card-shadow">
+
+                <!-- ICONO -->
+                <div class="w-14 h-14 flex items-center justify-center bg-[#e6f4eb] text-[#0F8241] rounded-2xl mb-4">
+
+                    <i class="ph ph-file-text text-3xl"></i>
+
+                </div>
+
+
+                <!-- TÍTULO -->
+                <h3 class="font-bold text-gray-800 text-sm mb-1">
+                    No tienes excusas registradas
+                </h3>
+
+
+                <!-- DESCRIPCIÓN -->
+                <p class="text-xs text-gray-500 max-w-md">
+                    Cuando registres una excusa, aparecerá aquí junto con
+                    su fecha, motivo, soporte y estado de revisión.
+                </p>
+
+
+                <!-- BOTÓN -->
+                <button
+                    onclick="abrirNuevaExcusa()"
+                    class="mt-5 flex items-center gap-2 bg-[#0F8241] hover:bg-[#0c6d36] text-white px-4 py-2 rounded-xl text-xs font-semibold transition">
+
+                    <i class="ph-bold ph-plus"></i>
+
+                    Registrar primera excusa
+
+                </button>
+
+            </section>
+
+        </div>
+
+
+        <!-- ===================================================== -->
+        <!-- INFORMACIÓN -->
+        <!-- ===================================================== -->
+
+        <div class="max-w-5xl mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+
+
+            <!-- INFORMACIÓN 1 -->
+            <div class="bg-white/70 backdrop-blur-sm border border-white rounded-2xl p-4 shadow-sm">
+
+                <div class="flex items-center gap-3">
+
+                    <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+
+                        <i class="ph ph-info text-lg"></i>
+
+                    </div>
+
+                    <div>
+
+                        <p class="text-xs font-bold text-gray-800">
+                            ¿Qué es una excusa?
+                        </p>
+
+                        <p class="text-[10px] text-gray-500 mt-0.5">
+                            Justificación de una ausencia.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- INFORMACIÓN 2 -->
+            <div class="bg-white/70 backdrop-blur-sm border border-white rounded-2xl p-4 shadow-sm">
+
+                <div class="flex items-center gap-3">
+
+                    <div class="w-9 h-9 rounded-xl bg-yellow-50 text-yellow-600 flex items-center justify-center">
+
+                        <i class="ph ph-clock text-lg"></i>
+
+                    </div>
+
+                    <div>
+
+                        <p class="text-xs font-bold text-gray-800">
+                            Revisión
+                        </p>
+
+                        <p class="text-[10px] text-gray-500 mt-0.5">
+                            Será revisada por el responsable.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- INFORMACIÓN 3 -->
+            <div class="bg-white/70 backdrop-blur-sm border border-white rounded-2xl p-4 shadow-sm">
+
+                <div class="flex items-center gap-3">
+
+                    <div class="w-9 h-9 rounded-xl bg-green-50 text-green-600 flex items-center justify-center">
+
+                        <i class="ph ph-check-circle text-lg"></i>
+
+                    </div>
+
+                    <div>
+
+                        <p class="text-xs font-bold text-gray-800">
+                            Soporte
+                        </p>
+
+                        <p class="text-[10px] text-gray-500 mt-0.5">
+                            Puedes adjuntar documentos.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- ========================================================= -->
+    <!-- JAVASCRIPT -->
+    <!-- ========================================================= -->
+
+    <script>
+
+        /*
+         * =========================================================
+         * ESTRUCTURA PREPARADA PARA LA BASE DE DATOS
+         * =========================================================
+         *
+         * Más adelante estos datos NO estarán escritos aquí.
+         *
+         * Se reemplazarán por información obtenida desde la
+         * base de datos / API.
+         *
+         * Ejemplo de estructura:
+         *
+         * {
+         *   id: 1,
+         *   usuario_id: 15,
+         *   fecha: "2026-08-13",
+         *   motivo: "Cita médica",
+         *   descripcion: "...",
+         *   soporte: "documento.pdf",
+         *   estado: "pendiente"
+         * }
+         *
+         * =========================================================
+         */
+
+        let excusas = [];
+
+
+        /*
+         * =========================================================
+         * RENDERIZAR EXCUSAS
+         * =========================================================
+         */
+
+        function renderizarExcusas() {
+
+            const contenedor =
+                document.getElementById("contenedor-excusas");
+
+            const estadoVacio =
+                document.getElementById("estado-vacio");
+
+
+            /*
+             * Si todavía no existen registros
+             */
+            if (excusas.length === 0) {
+
+                estadoVacio.style.display = "flex";
+
+                return;
+
+            }
+
+
+            /*
+             * Si existen registros
+             */
+            estadoVacio.style.display = "none";
+
+
+            /*
+             * Aquí posteriormente se generarán
+             * las tarjetas provenientes de la BD.
+             */
+
+            excusas.forEach(excusa => {
+
+                const tarjeta = document.createElement("div");
+
+                tarjeta.className =
+                    "bg-white/90 backdrop-blur-sm rounded-2xl p-5 border border-white shadow-sm card-shadow";
+
+
+                tarjeta.innerHTML = `
+
+                    <div class="flex justify-between items-center">
+
+                        <div>
+
+                            <h3 class="font-bold text-sm text-gray-900">
+                                ${excusa.motivo}
+                            </h3>
+
+                            <p class="text-xs text-gray-500 mt-1">
+                                ${excusa.fecha}
+                            </p>
+
+                        </div>
+
+                        <span class="px-3 py-1 rounded-full text-[10px] font-bold bg-yellow-100 text-yellow-700">
+                            ${excusa.estado}
+                        </span>
+
+                    </div>
+
+                `;
+
+
+                contenedor.appendChild(tarjeta);
+
+            });
+
+        }
+
+
+        /*
+         * =========================================================
+         * NUEVA EXCUSA
+         * =========================================================
+         *
+         * Por ahora solamente dejamos preparado el botón.
+         *
+         * Posteriormente aquí podemos abrir un formulario/modal
+         * conectado directamente con la base de datos.
+         *
+         * =========================================================
+         */
+
+        function abrirNuevaExcusa() {
+
+            alert("Aquí se abrirá el formulario para registrar una nueva excusa.");
+
+        }
+
+
+        document
+            .getElementById("btnNuevaExcusa")
+            .addEventListener("click", abrirNuevaExcusa);
+
+
+        /*
+         * =========================================================
+         * CARGA INICIAL
+         * =========================================================
+         */
+
+        renderizarExcusas();
+
+    </script>
 
 </body>
 </html>
